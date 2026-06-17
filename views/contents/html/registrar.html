@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Productor Agropecuario</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/registrar.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header-section">
+        <img src="/assets/logo/paafekuto.png" alt="Logo" class="app-logo">
+        <div>
+            <h1>🌾 Registro Único Nacional</h1>
+            <p style="margin: 3px 0 0 0; font-size: 13px; color: var(--text-muted);">Formulario de Registro de Nuevo Productor</p>
+        </div>
+    </div>
+    
+    <form action="/productores/registrar" method="POST" enctype="multipart/form-data" id="form-registro">
+        
+        <h3>1. Datos Personales del Productor</h3>
+        <div class="grid">
+            <div class="form-group">
+                <label>Cédula / RIF:</label>
+                <input type="text" name="cedula" placeholder="Ej: V-32123123 o 32123123" required>
+                <small style="color: var(--text-muted); font-size: 11px; margin-top: 3px;">Se formateará automáticamente (ej: V-32123123)</small>
+            </div>
+            <div class="form-group">
+                <label>Teléfono de Contacto:</label>
+                <input type="text" name="telefono" placeholder="Ej: 04121234567 o +58..." required>
+                <small style="color: var(--text-muted); font-size: 11px; margin-top: 3px;">Se formateará automáticamente (ej: 0412-1234567)</small>
+            </div>
+            <div class="form-group">
+                <label>Nombres:</label>
+                <input type="text" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label>Apellidos:</label>
+                <input type="text" name="apellido" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="email" placeholder="productor@correo.com">
+        </div>
+
+        <h3>2. Ubicación y Detalles de las Fincas (Predios)</h3>
+        <div id="fincas-container">
+            <div class="finca-card">
+                <h4>Detalles de la Finca / Predio</h4>
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Nombre de la Finca:</label>
+                        <input type="text" name="nombre_finca" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hectáreas Totales:</label>
+                        <input type="number" step="0.01" name="hectareas" placeholder="Ej: 15.50" required>
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Sector / Caserío:</label>
+                        <input type="text" name="sector" required>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 8px;">Ubicación Geográfica Nacional:</label>
+                    <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                        <div class="form-group">
+                            <label style="font-size: 12px;">Estado:</label>
+                            <select class="select-estado" required>
+                                <option value="">Seleccione Estado...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 12px;">Municipio:</label>
+                            <select class="select-municipio" required disabled>
+                                <option value="">Seleccione Municipio...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 12px;">Parroquia:</label>
+                            <select class="select-parroquia" name="id_parroquia" required disabled>
+                                <option value="">Seleccione Parroquia...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn-add-finca" id="btn-agregar-finca">+ Añadir Otra Finca / Predio</button>
+
+        <h3>3. Identificación Única (Marca de Ganado - Una Sola)</h3>
+        <div class="form-group">
+            <label>Nombre de la Marca:</label>
+            <input type="text" name="nombre_marca" placeholder="Ej: El Hierro Central" required>
+        </div>
+
+        <label style="font-weight: bold; margin-bottom: 8px; display: block;">Método de Ingreso de la Marca:</label>
+        <div class="metodo-selector">
+            <label class="metodo-option">
+                <input type="radio" name="metodo_marca" value="dibujar" checked> ✍️ Dibujar en el lienzo
+            </label>
+            <label class="metodo-option">
+                <input type="radio" name="metodo_marca" value="subir"> 📂 Subir archivo PNG
+            </label>
+        </div>
+
+        <!-- Opción A: Canvas -->
+        <div id="canvas-contenedor">
+            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Dibuja la marca sobre el lienzo con tu mouse:</label>
+            <canvas id="canvas_marca" width="250" height="250"></canvas><br>
+            <button type="button" class="btn-clear" id="btn-limpiar">Borrar Lienzo</button>
+        </div>
+
+        <!-- Opción B: Subir Archivo -->
+        <div id="upload-contenedor" style="display: none;">
+            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Selecciona el archivo PNG de tu marca:</label>
+            <input type="file" id="input_archivo_externo" accept=".png" style="font-size: 14px;"><br><br>
+            <small style="color: var(--text-muted); display: block;">Formatos aceptados: <strong>PNG</strong> únicamente. Resolución máxima: 1500x1500px. Tamaño máximo: 2MB.</small>
+        </div>
+
+        <input type="file" name="imagen_marca" id="input_archivo_oculto" style="display: none;">
+        <input type="hidden" name="imagen_similarity_hash" id="input_similarity_hash">
+
+        <button type="submit" class="btn-submit">💾 Guardar Registro Nacional</button>
+    </form>
+
+    <a href="/productores/listado" class="link-volver">⬅ Volver al Listado</a>
+</div>
+
+<script src="/js/common.js" defer></script>
+<script src="/js/registrar.js" defer></script>
+
+</body>
+</html>

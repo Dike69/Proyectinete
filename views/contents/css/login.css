@@ -1,0 +1,102 @@
+/* Login Split Screen specific styles */
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.login-wrapper {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-side-image {
+    flex: 1.2;
+    background-image: url('/assets/side/beato.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-right: 2px solid var(--primary-color);
+}
+
+.login-side-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(11, 11, 11, 0.4) 0%, rgba(212, 175, 55, 0.15) 100%);
+}
+
+.login-form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.login-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 380px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.logo-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    padding: 5px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.error-box {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.helper-text {
+    margin-top: 25px;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 15px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.helper-text code {
+    font-weight: bold;
+    color: var(--primary-color);
+    background: rgba(212, 175, 55, 0.15);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .login-side-image {
+        display: none;
+    }
+    .login-form-container {
+        flex: 1;
+        padding: 20px;
+    }
+}

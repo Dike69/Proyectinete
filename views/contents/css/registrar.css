@@ -1,0 +1,91 @@
+/* Registrar template specific styles */
+.finca-card {
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+    background: var(--secondary-color);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.remove-finca-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #ff5c5c;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn-add-finca {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-add-finca:hover {
+    background: var(--primary-color);
+    color: #0b0b0b;
+}
+
+.metodo-selector {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    background: var(--secondary-color);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.metodo-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#canvas-contenedor {
+    text-align: center;
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--secondary-color);
+}
+
+canvas {
+    border: 2px dashed var(--primary-color);
+    background: #fff;
+    cursor: crosshair;
+    border-radius: 4px;
+}
+
+.btn-clear {
+    background: #e74c3c;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+#upload-contenedor {
+    padding: 20px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 6px;
+    text-align: center;
+    background: var(--secondary-color);
+    margin: 15px 0;
+}

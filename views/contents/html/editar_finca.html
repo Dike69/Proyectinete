@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Finca</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/editar_finca.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header-section">
+        <img src="/assets/logo/paafekuto.png" alt="Logo" class="app-logo">
+        <div>
+            <h1>🌾 Editar Finca / Predio</h1>
+            <p style="margin: 3px 0 0 0; font-size: 13px; color: var(--text-muted);">Productor: <%= productor.nombre %> <%= productor.apellido %></p>
+        </div>
+    </div>
+    
+    <form action="/productores/editar-finca/<%= finca.id %>" method="POST" id="form-finca" data-estado-id="<%= geo.id_estado %>" data-municipio-id="<%= geo.id_municipio %>" data-parroquia-id="<%= geo.parroquia_id %>">
+        
+        <div class="form-group">
+            <label>Nombre de la Finca / Predio:</label>
+            <input type="text" name="nombre" value="<%= finca.nombre %>" required>
+        </div>
+
+        <div class="grid">
+            <div class="form-group">
+                <label>Hectáreas Totales:</label>
+                <input type="number" step="0.01" name="hectareas" value="<%= finca.hectareas %>" required>
+            </div>
+            <div class="form-group">
+                <label>Sector / Caserío:</label>
+                <input type="text" name="sector" value="<%= finca.sector %>" required>
+            </div>
+        </div>
+
+        <h3>Ubicación Geográfica Nacional</h3>
+        <div class="form-group">
+            <label>Estado:</label>
+            <select id="select-estado" required>
+                <option value="">Seleccione un Estado...</option>
+            </select>
+        </div>
+
+        <div class="grid">
+            <div class="form-group">
+                <label>Municipio:</label>
+                <select id="select-municipio" required disabled>
+                    <option value="">Seleccione un Municipio...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Parroquia:</label>
+                <select id="select-parroquia" name="id_parroquia" required disabled>
+                    <option value="">Seleccione una Parroquia...</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">💾 Guardar Cambios</button>
+    </form>
+
+    <a href="/productores/listado" class="link-volver">⬅ Volver al Listado</a>
+</div>
+
+<script src="/js/common.js" defer></script>
+<script src="/js/editar_finca.js" defer></script>
+
+</body>
+</html>

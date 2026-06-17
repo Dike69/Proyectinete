@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Productor y Marca</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/editar_productor.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header-section">
+        <img src="/assets/logo/paafekuto.png" alt="Logo" class="app-logo">
+        <div>
+            <h1>🌾 Editar Productor y Marca</h1>
+            <p style="margin: 3px 0 0 0; font-size: 13px; color: var(--text-muted);">Formulario Administrativo de Modificación</p>
+        </div>
+    </div>
+    
+    <form action="/productores/editar/<%= productor.id %>" method="POST" enctype="multipart/form-data" id="form-editar">
+        
+        <h3>1. Datos Personales del Productor</h3>
+        <div class="grid">
+            <div class="form-group">
+                <label>Cédula / RIF:</label>
+                <input type="text" name="cedula" value="<%= productor.cedula %>" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono de Contacto:</label>
+                <input type="text" name="telefono" value="<%= productor.telefono %>" required>
+            </div>
+            <div class="form-group">
+                <label>Nombres:</label>
+                <input type="text" name="nombre" value="<%= productor.nombre %>" required>
+            </div>
+            <div class="form-group">
+                <label>Apellidos:</label>
+                <input type="text" name="apellido" value="<%= productor.apellido %>" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Correo Electrónico:</label>
+            <input type="email" name="email" value="<%= productor.email %>">
+        </div>
+
+        <h3>2. Marca de Ganado Única</h3>
+        <div class="form-group">
+            <label>Nombre de la Marca:</label>
+            <input type="text" name="nombre_marca" value="<%= marca ? marca.nombre : '' %>" required>
+        </div>
+
+        <!-- Marca Actual -->
+        <div class="current-brand-box">
+            <% if (marca && marca.imagen_path) { %>
+                <img src="<%= marca.imagen_path %>" alt="Marca Actual" class="current-brand-img">
+                <div>
+                    <strong>Marca de Ganado Registrada</strong><br>
+                    <small style="color: var(--text-muted);">Si no deseas cambiar el diseño de la marca, selecciona "Mantener marca actual".</small>
+                </div>
+            <% } else { %>
+                <span style="color: gray; font-style: italic;">Sin marca cargada</span>
+            <% } %>
+        </div>
+
+        <label style="font-weight: bold; margin-bottom: 8px; display: block;">Acción para la Marca de Ganado:</label>
+        <div class="metodo-selector">
+            <label class="metodo-option">
+                <input type="radio" name="metodo_marca" value="mantener" checked> 📁 Mantener marca actual
+            </label>
+            <label class="metodo-option">
+                <input type="radio" name="metodo_marca" value="dibujar"> ✍️ Dibujar nuevo diseño
+            </label>
+            <label class="metodo-option">
+                <input type="radio" name="metodo_marca" value="subir"> 📂 Subir nuevo archivo PNG
+            </label>
+        </div>
+
+        <!-- Opción A: Canvas -->
+        <div id="canvas-contenedor" style="display: none;">
+            <label style="font-weight: bold; display: block; margin-bottom: 10px;">Dibuja la nueva marca sobre el lienzo:</label>
+            <canvas id="canvas_marca" width="250" height="250"></canvas><br>
+            <button type="button" class="btn-clear" id="btn-limpiar">Borrar Lienzo</button>
+        </div>
+
+        <!-- Opción B: Subir Archivo -->
+        <div id="upload-contenedor" style="display: none;">
+            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Selecciona el nuevo archivo PNG:</label>
+            <input type="file" id="input_archivo_externo" accept=".png" style="font-size: 14px;"><br><br>
+            <small style="color: var(--text-muted); display: block;">Tamaño máximo: 2MB. Resoluciones admitidas: 50x50px a 1500x1500px.</small>
+        </div>
+
+        <!-- Envío Oculto para Multer -->
+        <input type="file" name="imagen_marca" id="input_archivo_oculto" style="display: none;">
+        <!-- Campo para mandar el hash de similitud calculado -->
+        <input type="hidden" name="imagen_similarity_hash" id="input_similarity_hash">
+
+        <button type="submit" class="btn-submit">💾 Guardar Cambios</button>
+    </form>
+
+    <a href="/productores/listado" class="link-volver">⬅ Volver al Listado</a>
+</div>
+
+<script src="/js/common.js" defer></script>
+<script src="/js/editar_productor.js" defer></script>
+
+</body>
+</html>
